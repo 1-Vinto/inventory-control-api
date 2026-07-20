@@ -1,5 +1,5 @@
-import { ProductRepository } from "./ProductRepository.js";
-import { CreateProductUseCase } from "./CreateProductUseCase.js";
+import { ProductRepository } from "./product/repositories/ProductRepository.js";
+import { CreateProductUseCase } from "./product/usecases/CreateProductUseCase.js";
 
 const repository = new ProductRepository();
 
