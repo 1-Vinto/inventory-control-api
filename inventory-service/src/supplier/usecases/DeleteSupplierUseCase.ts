@@ -1,15 +1,15 @@
 import { SupplierRepository } from "../repositories/SupplierRepository.js";
 
 interface DeleteSupplierRequest{
-    cnpj: string;
+    targetCnpj: string;
 }
 export class DeleteSupplierUseCase{
     constructor(private readonly supplierRepository: SupplierRepository){}
-    execute({cnpj}: DeleteSupplierRequest): void {
-        const existingSupplier = this.supplierRepository.findByCnpj(cnpj);
+    execute({targetCnpj}: DeleteSupplierRequest): void {
+        const existingSupplier = this.supplierRepository.findByCnpj(targetCnpj);
         if(!existingSupplier){
-            throw new Error("Supplier not found")
+            throw new Error("Supplier not found");
         }
-        this.supplierRepository.delete(cnpj);
+        this.supplierRepository.delete(targetCnpj);
     }
 }

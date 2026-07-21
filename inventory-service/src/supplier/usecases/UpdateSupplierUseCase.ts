@@ -2,14 +2,14 @@ import { SupplierRepository } from "../repositories/SupplierRepository.js";
 import { Supplier } from "../Supplier.js";
 
 interface UpdateSupplierRequest {
-  cnpj: string;
+  targetCnpj: string;
   name: string;
 }
 
 export class UpdateSupplierUseCase {
   constructor(private readonly supplierRepository: SupplierRepository) {}
-  execute({ cnpj, name }: UpdateSupplierRequest): Supplier {
-    const existingSupplier = this.supplierRepository.findByCnpj(cnpj);
+  execute({ targetCnpj, name }: UpdateSupplierRequest): Supplier {
+    const existingSupplier = this.supplierRepository.findByCnpj(targetCnpj);
     if (!existingSupplier) {
       throw new Error("Supplier not found");
     }
