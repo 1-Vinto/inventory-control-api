@@ -34,3 +34,7 @@ docker-data
 
 # Prisma
 prisma/dev.db
+
+#Postman
+postman/
+.postman/
