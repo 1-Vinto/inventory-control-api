@@ -38,3 +38,5 @@ export class InMemoryProductRepository implements ProductRepository {
     this.products.splice(productIndex, 1);
   }
 }
+
+export const memoryProductRepository = new InMemoryProductRepository();

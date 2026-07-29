@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { InMemoryProductRepository } from "../repositories/InMemoryProductRepository.js";
+import { memoryProductRepository } from "../repositories/InMemoryProductRepository.js";
 import { CreateProductUseCase } from "../usecases/CreateProductUseCase.js";
 import { FindAllProductsUseCase } from "../usecases/FindAllProductsUseCase.js";
 import { UpdateProductUseCase } from "../usecases/UpdateProductUseCase.js";
 import { DeleteProductUseCase } from "../usecases/DeleteProductUseCase.js";
 
 const router = Router();
-const repository = new InMemoryProductRepository();
+const repository = memoryProductRepository;
 const createProduct = new CreateProductUseCase(repository);
 const findAllProducts = new FindAllProductsUseCase(repository);
 const updateProduct = new UpdateProductUseCase(repository);

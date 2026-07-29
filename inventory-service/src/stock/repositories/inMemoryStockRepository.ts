@@ -27,3 +27,5 @@ export class InMemoryStockRepository implements StockRepository {
     return [...this.stocks];
   }
 }
+
+export const memoryStockRepository = new InMemoryStockRepository();
