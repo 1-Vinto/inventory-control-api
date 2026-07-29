@@ -40,7 +40,6 @@ router.put("/products/:sku", (request, response) => {
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "Erro desconhecido";
-
     response.status(400).json({ message });
   }
 });
@@ -54,7 +53,6 @@ router.delete("/products/:sku", (request, response) => {
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "Erro desconhecido";
-
     response.status(400).json({ message });
   }
 });

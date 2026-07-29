@@ -36,3 +36,5 @@ export class InMemorySupplierRepository implements SupplierRepository {
     this.suppliers.splice(supplierIndex, 1);
   }
 }
+
+export const memorySupplierRepository = new InMemorySupplierRepository();
