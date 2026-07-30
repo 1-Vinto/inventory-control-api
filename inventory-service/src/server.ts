@@ -1,3 +1,4 @@
+import "dotenv/config"
 import express from "express"
 import { productRoutes } from "./product/routes/product.routes.js";
 import { stockRoutes } from "./stock/routes/Stock.routes.js";

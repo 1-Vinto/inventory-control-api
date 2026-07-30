@@ -3,7 +3,7 @@ import { ProductRepository } from "../repositories/ProductRepository.js";
 
 export class FindAllProductsUseCase{
     constructor(private readonly productRepository: ProductRepository){}
-    execute(): Product[]{
-        return this.productRepository.findAll();
+    async execute(): Promise<Product[]>{
+        return await this.productRepository.findAll();
     }
 }

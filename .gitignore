@@ -38,3 +38,7 @@ prisma/dev.db
 #Postman
 postman/
 .postman/
+
+.windsurf
+.agents
+.claude

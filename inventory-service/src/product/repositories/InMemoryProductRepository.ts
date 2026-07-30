@@ -4,20 +4,20 @@ import { ProductRepository } from "./ProductRepository.js";
 export class InMemoryProductRepository implements ProductRepository {
   private products: Product[] = [];
 
-  save(product: Product): void {
+  async save(product: Product): Promise<void> {
     this.products.push(product);
   }
 
-  findAll(): Product[] {
+  async findAll(): Promise<Product[]> {
     return [...this.products];
   }
 
-  findBySku(sku: string): Product | undefined {
+  async findBySku(sku: string): Promise<Product | undefined> {
     const normalizedSku = sku.trim();
     return this.products.find((product) => product.getSku() === normalizedSku);
   }
 
-  update(product: Product): void {
+  async update(product: Product): Promise<void> {
     const productIndex = this.products.findIndex(
       (currentProduct) => currentProduct.getSku() === product.getSku(),
     );
@@ -27,7 +27,7 @@ export class InMemoryProductRepository implements ProductRepository {
     this.products[productIndex] = product;
   }
 
-  delete(sku: string): void {
+  async delete(sku: string): Promise<void> {
     const normalizedSku = sku.trim();
     const productIndex = this.products.findIndex(
       (product) => product.getSku() === normalizedSku,

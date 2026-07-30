@@ -21,6 +21,25 @@ export class Product {
     this.createdAt = now;
     this.updatedAt = now;
   }
+
+  static restore(data:{
+    name: string;
+    description: string;
+    sellPrice: number;
+    sku: string;
+    createdAt: Date;
+    updatedAt: Date;
+  }): Product {
+    const product = Object.create(Product.prototype) as Product;
+    product.name = data.name;
+    product.description =  data.description;
+    product.sellPrice = data.sellPrice;
+    (product as any).sku = data.sku;
+    (product as any).createdAt = data.createdAt;
+    product.updatedAt = data.updatedAt;
+    return product;
+  }
+
   changeName(name: string): void{
     this.validateName(name);
     this.name = name.trim();

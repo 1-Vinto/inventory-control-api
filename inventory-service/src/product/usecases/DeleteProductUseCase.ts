@@ -6,11 +6,11 @@ interface DeleteProductRequest{
 
 export class DeleteProductUseCase{
     constructor(private readonly productRepository: ProductRepository){}
-    execute({targetSku}:DeleteProductRequest): void{
-        const existingProduct = this.productRepository.findBySku(targetSku);
+    async execute({targetSku}:DeleteProductRequest): Promise<void>{
+        const existingProduct = await this.productRepository.findBySku(targetSku);
         if(!existingProduct){
             throw new Error("Product not found");
         }
-        this.productRepository.delete(targetSku);
+        await this.productRepository.delete(targetSku);
     }
 }

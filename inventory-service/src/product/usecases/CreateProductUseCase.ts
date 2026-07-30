@@ -11,15 +11,15 @@ interface CreateProductRequest {
 export class CreateProductUseCase {
   constructor(private readonly productRepository: ProductRepository) {}
 
-  execute({ name, description, sellPrice, sku }: CreateProductRequest): Product {
+  async execute({ name, description, sellPrice, sku }: CreateProductRequest): Promise<Product> {
     const normalizedSku = sku.trim();
-    const existingProduct = this.productRepository.findBySku(normalizedSku);
+    const existingProduct = await this.productRepository.findBySku(normalizedSku);
     if (existingProduct) {
       throw new Error("Product with this SKU already exists");
     }
 
     const product = new Product(name, description, sellPrice, sku);
-    this.productRepository.save(product);
+    await this.productRepository.save(product);
     return product;
   }
 }
