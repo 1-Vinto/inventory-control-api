@@ -8,13 +8,13 @@ interface UpdateSupplierRequest {
 
 export class UpdateSupplierUseCase {
   constructor(private readonly supplierRepository: SupplierRepository) {}
-  execute({ targetCnpj, name }: UpdateSupplierRequest): Supplier {
-    const existingSupplier = this.supplierRepository.findByCnpj(targetCnpj);
+  async execute({ targetCnpj, name }: UpdateSupplierRequest): Promise<Supplier> {
+    const existingSupplier = await this.supplierRepository.findByCnpj(targetCnpj);
     if (!existingSupplier) {
       throw new Error("Supplier not found");
     }
     existingSupplier.changeName(name);
-    this.supplierRepository.update(existingSupplier);
+    await this.supplierRepository.update(existingSupplier);
     return existingSupplier;
   }
 }

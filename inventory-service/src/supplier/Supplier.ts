@@ -18,6 +18,20 @@ export class Supplier {
     this.updatedAt = now;
   }
 
+  static restore(data:{
+    name: string;
+    cnpj: string;
+    createdAt: Date;
+    updatedAt: Date;
+  }): Supplier {
+    const supplier = Object.create(Supplier.prototype) as Supplier;
+    supplier.name = data.name;
+    supplier.cnpj = data.cnpj;
+    (supplier as any).createdAt = data.createdAt;
+    supplier.updatedAt = data.updatedAt;
+    return supplier;
+  }
+
   changeName(name: string): void {
     this.validateName(name);
     this.name = name.trim();

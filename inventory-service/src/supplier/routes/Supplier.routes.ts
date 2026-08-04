@@ -1,20 +1,21 @@
 import { Router } from "express";
-import { memorySupplierRepository } from "../repositories/InMemorySupplierRepository.js";
+//import { memorySupplierRepository } from "../repositories/InMemorySupplierRepository.js";
 import { CreateSupplierUseCase } from "../usecases/CreateSupplierUseCase.js";
 import { DeleteSupplierUseCase } from "../usecases/DeleteSupplierUseCase.js";
 import { FindAllSuppliersUseCase } from "../usecases/FindAllSuppliersUseCase.js";
 import { UpdateSupplierUseCase } from "../usecases/UpdateSupplierUseCase.js";
+import { prismaSupplierRepository } from "../repositories/PrismaSupplierRepository.js";
 
 const router = Router();
-const supplierRepository = memorySupplierRepository;
-const createSupplier = new CreateSupplierUseCase(supplierRepository);
-const deleteSupplier = new DeleteSupplierUseCase(supplierRepository);
-const updateSupplier = new UpdateSupplierUseCase(supplierRepository);
-const findAllSuppliers = new FindAllSuppliersUseCase(supplierRepository);
+const repository = prismaSupplierRepository;
+const createSupplier = new CreateSupplierUseCase(repository);
+const deleteSupplier = new DeleteSupplierUseCase(repository);
+const updateSupplier = new UpdateSupplierUseCase(repository);
+const findAllSuppliers = new FindAllSuppliersUseCase(repository);
 
-router.post("/suppliers", (request, response) => {
+router.post("/suppliers", async (request, response) => {
   try {
-    const supplier = createSupplier.execute(request.body);
+    const supplier = await createSupplier.execute(request.body);
     response.status(201).json(supplier);
   } catch (error) {
     const message =
@@ -23,10 +24,10 @@ router.post("/suppliers", (request, response) => {
   }
 });
 
-router.delete("/suppliers/:cnpj", (request, response) => {
+router.delete("/suppliers/:cnpj", async (request, response) => {
   try {
     const cnpj = request.params.cnpj;
-    deleteSupplier.execute({ targetCnpj: cnpj });
+    await deleteSupplier.execute({ targetCnpj: cnpj });
     response.status(204).send();
   } catch (error) {
     const message =
@@ -35,11 +36,11 @@ router.delete("/suppliers/:cnpj", (request, response) => {
   }
 });
 
-router.put("/suppliers/:cnpj", (request, response) => {
+router.put("/suppliers/:cnpj", async (request, response) => {
   try {
     const cnpj = request.params.cnpj;
     const name = request.body.name;
-    const editSupplier = updateSupplier.execute({ targetCnpj: cnpj, name });
+    const editSupplier = await updateSupplier.execute({ targetCnpj: cnpj, name });
     response.status(200).json(editSupplier);
   } catch (error) {
     const message =
@@ -48,8 +49,8 @@ router.put("/suppliers/:cnpj", (request, response) => {
   }
 });
 
-router.get("/suppliers", (request, response) => {
-    const allSuppliers = findAllSuppliers.execute();
+router.get("/suppliers", async (request, response) => {
+    const allSuppliers = await findAllSuppliers.execute();
     response.status(200).json(allSuppliers);
 });
 

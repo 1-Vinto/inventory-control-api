@@ -5,11 +5,11 @@ interface DeleteSupplierRequest{
 }
 export class DeleteSupplierUseCase{
     constructor(private readonly supplierRepository: SupplierRepository){}
-    execute({targetCnpj}: DeleteSupplierRequest): void {
+    async execute({targetCnpj}: DeleteSupplierRequest): Promise<void> {
         const existingSupplier = this.supplierRepository.findByCnpj(targetCnpj);
         if(!existingSupplier){
             throw new Error("Supplier not found");
         }
-        this.supplierRepository.delete(targetCnpj);
+        await this.supplierRepository.delete(targetCnpj);
     }
 }

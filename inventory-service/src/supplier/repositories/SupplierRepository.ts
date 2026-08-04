@@ -1,9 +1,9 @@
 import { Supplier } from "../Supplier.js";
 
 export interface SupplierRepository{
-    save(supplier: Supplier): void;
-    findAll(): Supplier[];
-    findByCnpj(cnpj: string): Supplier| undefined; 
-    update(supplier: Supplier): void;
-    delete(cnpj: string): void;
+    save(supplier: Supplier): Promise<void>;
+    findAll(): Promise<Supplier[]>;
+    findByCnpj(cnpj: string): Promise<Supplier| undefined>; 
+    update(supplier: Supplier): Promise<void>;
+    delete(cnpj: string): Promise<void>;
 }  
